@@ -1,22 +1,21 @@
 const signUp = e => {
-    let fname = document.getElementById('fname').value,
-        lname = document.getElementById('lname').value,
-        email = document.getElementById('email').value,
-        pwd = document.getElementById('pwd').value;
-
+    let username = document.getElementById('username').value,
+        email = document.getElementById('email').value;
+       
     let formData = JSON.parse(localStorage.getItem('formData')) || [];
 
     let exist = formData.length && 
         JSON.parse(localStorage.getItem('formData')).some(data => 
-            data.fname.toLowerCase() == fname.toLowerCase() && 
-            data.lname.toLowerCase() == lname.toLowerCase()
+            data.username.toLowerCase() == username.toLowerCase() 
+            // && 
+            // data.lname.toLowerCase() == lname.toLowerCase()
         );
 
     if(!exist){
-        formData.push({ fname, lname, email, pwd });
+        formData.push({ username, email});
         localStorage.setItem('formData', JSON.stringify(formData));
         document.querySelector('form').reset();
-        document.getElementById('fname').focus();
+        document.getElementById('username').focus();
         alert("Account Created.\n\nPlease Sign In using the link below.");
     }
     else{
@@ -26,10 +25,10 @@ const signUp = e => {
 }
 
 function signIn(e) {
-    let email = document.getElementById('email').value, pwd = document.getElementById('pwd').value;
+    let email = document.getElementById('username').value;
     let formData = JSON.parse(localStorage.getItem('formData')) || [];
     let exist = formData.length && 
-    JSON.parse(localStorage.getItem('formData')).some(data => data.email.toLowerCase() == email && data.pwd.toLowerCase() == pwd);
+    JSON.parse(localStorage.getItem('formData')).some(data => data.username.toLowerCase() == email);
     if(!exist){
         alert("Incorrect login credentials");
     }
@@ -37,4 +36,9 @@ function signIn(e) {
         location.href = "/";
     }
     e.preventDefault();
+}
+
+function welcome(e){
+    let username = document.getElementById('username').value;
+
 }
